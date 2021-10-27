@@ -1,0 +1,6 @@
+
+1. Create a new Rails app
+
+2. Create a home controller and set a root path
+
+3. Install devise gem and create a user model
