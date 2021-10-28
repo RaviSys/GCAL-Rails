@@ -1,19 +1,39 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @event.title %>
-</p>
 
-<p>
-  <strong>Start date:</strong>
-  <%= @event.start_date %>
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <div class="card mb-4">
+        <div class="card-header bg-primary">
+          <h1 class="text-white text-center">Event</h1>
+        </div>
+        <div class="card-body">
+          <p>
+            <strong>Title:</strong>
+            <%= @event.title %>
+          </p>
+          <hr>
+          <p>
+            <strong>Start date:</strong>
+            <%= @event.start_date %>
+          </p>
+          <hr>
+          <p>
+            <strong>End date:</strong>
+            <%= @event.end_date %>
+          </p>
+          <hr>
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <%= link_to 'Edit', edit_event_path(@event), class: 'btn btn-secondary' %> 
+            <%= link_to 'Back', events_path, class: 'btn btn-secondary' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>End date:</strong>
-  <%= @event.end_date %>
-</p>
 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+ 
+

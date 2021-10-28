@@ -10,33 +10,37 @@
       </ul>
     </div>
   <% end %>
+
   <%= form.hidden_field :user_id, value: current_user.id %>
-  <div class="field">
+  <%= form.hidden_field :latitude, id: :latitude %>
+  <%= form.hidden_field :longitude, id: :longitude %>
+  
+  <div class="form-group">
     <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :description %>
-    <%= form.text_field :description %>
+    <%= form.text_field :description, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :venue %>
-    <%= form.text_field :venue %>
+    <%= form.text_field :venue, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :start_date %>
-    <%= form.datetime_select :start_date %>
+    <%= form.datetime_field :start_date, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :end_date %>
-    <%= form.datetime_select :end_date %>
+    <%= form.datetime_field :end_date, class: 'form-control' %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: 'btn btn-block btn-primary mt-4 mb-3' %>
   </div>
 <% end %>

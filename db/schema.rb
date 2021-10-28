@@ -10,19 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_28_093259) do
+ActiveRecord::Schema.define(version: 2021_10_28_094618) do
 
-  create_table "events", force: :cascade do |t|
-    t.string "title"
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.integer "user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "venue"
-    t.text "description"
-    t.string "google_event_id"
-  end
+# Could not dump table "events" because of following StandardError
+#   Unknown type 'flaot' for column 'longitude'
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false

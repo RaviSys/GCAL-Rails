@@ -5,7 +5,7 @@ module GoogleCalendarApi
 
   include ActiveSupport::Concern
 
-  def get_google_calendar_client current_user
+  def get_google_calendar_client(current_user)
     client = Google::Apis::CalendarV3::CalendarService.new
     return unless (current_user.present? && current_user.access_token.present? && current_user.refresh_token.present?)
 
@@ -13,8 +13,8 @@ module GoogleCalendarApi
       "web" => {
         "access_token" => current_user.access_token,
         "refresh_token" => current_user.refresh_token,
-        "client_id" => "1094643307430-ttumqe0bk79utfd05g0laahjm94btq3p.apps.googleusercontent.com",
-        "client_secret" => "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"
+        "client_id" => ENV['GOOGLE_CLIENT_ID'],
+        "client_secret" => ENV['GOOGLE_CLIENT_SECRET']
       }
     })
     begin
