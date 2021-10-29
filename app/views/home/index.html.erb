@@ -1,2 +1,17 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<div class="jumbotron mt-5">
+  <h1 class="display-2">Hello, world!</h1>
+  <p class="lead">This is a simple app where we have integrated Google Calendar with Rails 6. You can create your events in a very simple way here and this app will sync your event with your google calendar. You will also see the integration of full calendar with yarn and webpacker. </p>
+  <hr class="my-4">
+  <p>Very simple to use and you can create as many as events you want.</p>
+  <p class="lead">
+    <%= link_to 'Create Your Event', new_event_path, class: "btn btn-primary btn-lg" %>
+  </p>
+</div>
+
+<p class="lead">You will learn here:</p>
+<ul class="list-group mb-5">
+  <li class="list-group-item">Sign with google in Rails App</li>
+  <li class="list-group-item">Integrating Google calender with rails app</li>
+  <li class="list-group-item">Create, edit, delete events in app and reflect on your google calendar</li>
+  <li class="list-group-item">Integration of Full Calendar with webpacker</li>
+</ul>

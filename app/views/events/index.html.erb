@@ -1,5 +1,6 @@
 <div class="row mt-3">
   <div class="col-lg-6 mx-lg-auto">
+    <%= link_to 'Calendar', calendar_path, class:'btn btn-primary btn-lg mb-5' %>
     <%= link_to 'New Event', new_event_path, class:'btn btn-primary btn-lg mb-5' %>
     <% @events.each do |event| %>
       <div class="card rounded-0 shadow mb-5">
@@ -15,4 +16,3 @@
     <% end %>
   </div>
 </div>
-

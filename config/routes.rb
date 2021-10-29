@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :events
+  get 'calendar' => 'events#event_calendar'
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations',

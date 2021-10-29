@@ -1,13 +1,9 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :show, :event_calendar, :events_for_calendar]
+  before_action :authenticate_user!
 
   def index
-    if user_signed_in? 
-      @events = current_user.events
-    else 
-      @events = Event.all
-    end
+    @events = current_user.events
   end
 
   def show
@@ -32,6 +28,8 @@ class EventsController < ApplicationController
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
+  rescue Google::Apis::ClientError => error
+    redirect_to events_path, notice: error.message
   end
 
   def update
