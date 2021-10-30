@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :sync_event_with_google]
   before_action :authenticate_user!
 
   def index
@@ -77,43 +77,17 @@ class EventsController < ApplicationController
   def sync_event_with_google
     @event = Event.find(params[:id])
     ge = @event.get_google_event(@event.google_event_id, @event.user)
-
-    event_guests = @event.guests.map {|guest| { email: guest.email, name: guest.email, organizer: guest.is_organizer }} << { email: @event.user.email, name: @event.user.name, organizer: true }
-
-    google_guests = ge.attendees.map {|attendee| {email: attendee.email, name: attendee.display_name, organizer: attendee.organizer}}.compact
-    
-    google_guests.each do |google_guest|
-      guest = Guest.find_by(email: google_guest[:email])
-      unless guest.present? 
-        Guest.create(email: google_guest[:email], name: google_guest[:name], is_organizer: google_guest[:organizer], event_id: @event.id)
-      end
-    end
-
+    guests = ge.attendees.map {|at| at.email}.join(", ")
+    @event.update(guest_list: guests)
     redirect_to event_path(@event), notice: "Event has been synced with google successfully."
-
   end
 
   def sync_all_user_events_with_google
     @events = current_user.events
     @events.each do |event|
-      ge = event.get_google_event(event.google_event_id, event.user)
-
-      event_guests = event.guests.map {|guest| { email: guest.email, name: guest.email, organizer: guest.is_organizer }} << { email: event.user.email, name: event.user.name, organizer: true }
-
-      if ge.attendees.present?
-        google_guests = ge.attendees.map {|attendee| {email: attendee.email, name: attendee.display_name, organizer: attendee.organizer}}.compact
-      else 
-        google_guests = []
-      end
-
-      unless google_guests.empty?
-        google_guests.each do |google_guest|
-          guest = Guest.find_by(email: google_guest[:email], event_id: event.id)
-          unless guest.present? 
-            Guest.create(email: google_guest[:email], name: google_guest[:name], is_organizer: google_guest[:organizer], event_id: event.id)
-          end
-        end
-      end  
+      ge = event.get_google_event(@event.google_event_id, @event.user)
+      guests = ge.attendees.map {|at| at.email}.join(", ")
+      event.update(guest_list: guests)
     end
     redirect_to events_path, notice: "All events has been synced with google successfully."
   end

@@ -11,6 +11,7 @@
           <%= link_to 'Show', event, class: 'btn btn-primary' %>
           <%= link_to 'Edit', edit_event_path(event), class: 'btn btn-primary' %>
           <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary' %>
+          <%= link_to 'Sync With Google', sync_event_with_google_event_path(event), class: 'btn btn-primary', method: :patch %>
         </div>
       </div>
     <% end %>
