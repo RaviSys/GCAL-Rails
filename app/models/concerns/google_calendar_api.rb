@@ -30,13 +30,13 @@ module GoogleCalendarApi
         )
       end
     rescue => e
-      raise e.message
+      puts e.message
     end
     client
   end
 
-  def create_google_event(event, user)
-    client = get_google_calendar_client user
+  def create_google_event(event)
+    client = get_google_calendar_client(event.user)
     g_event = get_event(event)
     ge = client.insert_event(Event::CALENDAR_ID, g_event)
     event.update(google_event_id: ge.id)
@@ -48,11 +48,11 @@ module GoogleCalendarApi
     event.update(google_event_id: ge.id)
   end
 
-  def edit_google_event(google_event_id, user, event)
-    client = get_google_calendar_client user
-    g_event = client.get_event(Event::CALENDAR_ID, google_event_id)
+  def edit_google_event(event)
+    client = get_google_calendar_client(event.user)
+    g_event = client.get_event(Event::CALENDAR_ID, event.google_event_id)
     ge = get_event(event)
-    client.update_event(Event::CALENDAR_ID, google_event_id, ge)
+    client.update_event(Event::CALENDAR_ID, event.google_event_id, ge)
   end
 
   def get_event(event)
@@ -72,16 +72,18 @@ module GoogleCalendarApi
         email: event.user.email, 
         displayName: event.user.name
       },
-      # attendees: event_attendees(event),
+      attendees: event_attendees(event),
       reminders: {
         use_default: false
-      }
+      },
+      sendNotifications: true,
+      sendUpdates: 'all'
     })
   end
 
-  def delete_google_event(google_event_id, user)
-    client = get_google_calendar_client user
-    client.delete_event(Event::CALENDAR_ID, google_event_id)
+  def delete_google_event(event)
+    client = get_google_calendar_client(event.user)
+    client.delete_event(Event::CALENDAR_ID, event.google_event_id)
   end
 
   def get_google_event(event_id, user)
@@ -90,7 +92,7 @@ module GoogleCalendarApi
   end
 
   def event_attendees(event)
-    event.guests.map {|guest| { email: guest.email }} << { email: event.user.email, displayName: event.user.name, organizer: true }
+    event.email_guest_list.map {|guest| { email: guest, displayName: guest.split('@')[0], organizer: false }} << { email: event.user.email, displayName: event.user.name, organizer: true}
   end
 
 end

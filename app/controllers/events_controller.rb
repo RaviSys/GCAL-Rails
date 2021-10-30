@@ -6,21 +6,18 @@ class EventsController < ApplicationController
     @events = current_user.events
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @event = Event.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @event = Event.new(event_params)
     respond_to do |format|
       if @event.save
-        @event.create_google_event(@event, current_user)
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
       else
@@ -35,7 +32,6 @@ class EventsController < ApplicationController
   def update
     respond_to do |format|
       if @event.update(event_params)
-        @event.edit_google_event(@event.google_event_id, current_user, @event)
         format.html { redirect_to @event, notice: 'Event was successfully updated.' }
         format.json { render :show, status: :ok, location: @event }
       else
@@ -46,7 +42,6 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    @event.delete_google_event(@event.google_event_id, current_user)
     @event.destroy
     respond_to do |format|
       format.html { redirect_to events_url, notice: 'Event was successfully destroyed.' }
@@ -54,8 +49,7 @@ class EventsController < ApplicationController
     end
   end
 
-  def event_calendar
-  end
+  def event_calendar; end
 
   def events_for_calendar
     @events = []
@@ -100,9 +94,7 @@ class EventsController < ApplicationController
   end
 
   def sync_all_user_events_with_google
-
     @events = current_user.events
-
     @events.each do |event|
       ge = event.get_google_event(event.google_event_id, event.user)
 
@@ -123,9 +115,7 @@ class EventsController < ApplicationController
         end
       end  
     end
-
     redirect_to events_path, notice: "All events has been synced with google successfully."
-
   end
 
   private

@@ -4,3 +4,12 @@
 2. Create a home controller and set a root path
 
 3. Install devise gem and create a user model
+
+4. Add auth fields to user model: provider uid access_token expires_at:integer refresh_token
+
+API_KEY = AIzaSyBmjDhxaIZfRa2fe6MlHG5fqij9hZEHz1E
+
+CLIENT_ID = 1094643307430-ttumqe0bk79utfd05g0laahjm94btq3p.apps.googleusercontent.com
+
+CLIENT_SECRET = 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
+
