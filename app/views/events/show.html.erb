@@ -1,13 +1,8 @@
-<p id="notice"><%= notice %></p>
-
-
 <div class="container">
-  <div class="row">
-    <div class="col-md-8 mx-auto">
+  <div class="row mt-5">
+    <div class="col-md-7">
+      <h3>Event Details</h3>
       <div class="card mb-4">
-        <div class="card-header bg-primary">
-          <h1 class="text-white text-center">Event</h1>
-        </div>
         <div class="card-body">
           <p>
             <strong>Title:</strong>
@@ -16,20 +11,37 @@
           <hr>
           <p>
             <strong>Start date:</strong>
-            <%= @event.start_date %>
+            <%= formatted_datetime(@event.start_date) %>
           </p>
           <hr>
           <p>
             <strong>End date:</strong>
-            <%= @event.end_date %>
+            <%= formatted_datetime(@event.end_date) %>
+          </p>
+          <p>
+            <strong>Description:</strong>
+            <%= @event.description %>
           </p>
           <hr>
-          <div class="btn-group" role="group" aria-label="Basic example">
-            <%= link_to 'Edit', edit_event_path(@event), class: 'btn btn-secondary' %> 
-            <%= link_to 'Back', events_path, class: 'btn btn-secondary' %>
-          </div>
+          <%= link_to 'Edit', edit_event_path(@event), class: 'btn btn-primary' %> 
+          <%= link_to 'Back', events_path, class: 'btn btn-primary' %>
         </div>
       </div>
+    </div>
+    <div class="col-md-5">
+      <h3>Event Participents</h3>
+      <ul class="list-group">
+        <% @event.email_guest_list.each do |guest| %>
+          <li class="list-group-item">
+            <div class="media">
+              <%= image_tag 'dummy-user.png', class: 'mr-3 guest-icon' %>
+              <div class="media-body">
+                <h5 class="mt-0"><%= guest %></h5>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      </ul>
     </div>
   </div>
 </div>

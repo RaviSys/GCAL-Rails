@@ -1,0 +1,17 @@
+<div class="modal-body">
+  <ul class="list-group">
+    <% @event.email_guest_list.each do |guest| %>
+      <li class="list-group-item">
+        <div class="media">
+          <%= image_tag 'dummy-user.png', class: 'mr-3 guest-icon' %>
+          <div class="media-body">
+            <h5 class="mt-0"><%= guest %></h5>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+</div>

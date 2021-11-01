@@ -1,0 +1,12 @@
+<div id="flash" class='text-center'>
+  <% flash.each do |key, value| %>
+    <div class="<%= flash_class(key.to_sym) %>">
+      <% unless value == true  %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <%= value %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
