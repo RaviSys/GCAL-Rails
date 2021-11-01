@@ -51,4 +51,18 @@ To render css and js assets faster open another tab and run following command:
 
 open browser at: [http://localhost:3000](http://localhost:3000).
 
+## Envorinment Variables
+
+For managing google client id and secret keys I have used the dot-env gem and if you use the same, then create a .env file in your progect and this to .gitignore file.
+
+And create these variables in it:
+
+```
+GOOGLE_CLIENT_ID
+GOOGLE_CLIENT_SECRET
+CALLBACK_URL
+```
+
+Cheers!!!
+
 For more helpful and time saving work samples visit us at: [https://ai-academy.herokuapp.com](https://ai-academy.herokuapp.com/).
